@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import "./App.css";
 
-function App() {
+const App = () => {
+  const [results, setResults] = useState("");
+
+  useEffect(() => {
+    getResults();
+  }, []);
+
+  const getResults = async () => {
+    const response = await fetch(`https://covid19-api.com/country/all`);
+    const data = await response.json();
+    setResults(data.hits);
+    console.log(data.hits);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>COVID19</h1>
     </div>
   );
-}
+};
 
 export default App;
